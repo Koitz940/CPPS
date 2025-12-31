@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/28 21:35:07 by gcassi-d          #+#    #+#             */
-/*   Updated: 2025/12/28 21:35:07 by gcassi-d         ###   ########.fr       */
+/*   Created: 2025/12/31 01:46:22 by gcassi-d          #+#    #+#             */
+/*   Updated: 2025/12/31 01:46:22 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "AForm.hpp"
 
-#include <string>
-#include "Brain.hpp"
-
-class Animal
+class RobotomyRequestForm: public AForm
 {
-	protected:
-		std::string type;
-	public:
-		Animal();
-		virtual ~Animal();
-		Animal(std::string type);
-		Animal(const Animal& other);
-		virtual Animal& operator=(const Animal& other);
+	const std::string target;
+	
+	RobotomyRequestForm();
 
-		std::string getType() const;
-		void setType(std::string type);
-		virtual void makeSound(void) const = 0;
-		virtual Brain* getBrain() const = 0;
+	public:
+		~RobotomyRequestForm();
+		RobotomyRequestForm(const std::string& target);
+		RobotomyRequestForm(const RobotomyRequestForm& other);
+		void execute(Bureaucrat const & executor) const;
 };

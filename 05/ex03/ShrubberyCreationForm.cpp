@@ -35,6 +35,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
 void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
 	this->checkConditions(executor);
+
 	std::string filename = this->target + "__shrubbery";
 	std::ofstream myfile(filename.c_str());
 

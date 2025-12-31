@@ -12,17 +12,17 @@
 
 #pragma once
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Brain.hpp"
 
-class Cat: public Animal
+class Cat: public AAnimal
 {
 	Brain* brain;
 	public:
 		Cat(void);
 		Cat(const Cat&);
 		~Cat();
-		Animal& operator=(const Animal& other);
+		AAnimal& operator=(const AAnimal& other);
 		Cat& operator=(const Cat& other);
 
 		void makeSound(void) const;

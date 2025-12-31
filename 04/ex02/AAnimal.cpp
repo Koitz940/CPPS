@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   AAnimal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,46 +11,46 @@
 /* ************************************************************************** */
 
 #include <iostream>
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 
-Animal::Animal()
+AAnimal::AAnimal()
 {
-	std::cout << "./Animal default\n";
+	std::cout << "./AAnimal default\n";
 	this->type = "";
 }
 
-Animal::~Animal()
+AAnimal::~AAnimal()
 {
-	std::cout << "Takeback (Animal): KeyboardInterrupt\n";
+	std::cout << "Takeback (AAnimal): KeyboardInterrupt\n";
 }
 
-Animal::Animal(std::string type)
+AAnimal::AAnimal(std::string type)
 {
 
-	std::cout << "./Animal parametrised\n";
+	std::cout << "./AAnimal parametrised\n";
 	this->type = type;
 }
 
-Animal::Animal(const Animal& other)
+AAnimal::AAnimal(const AAnimal& other)
 {
 
-	std::cout << "./Animal copy\n";
+	std::cout << "./AAnimal copy\n";
 	this->type = other.getType();
 }
 
-Animal& Animal::operator=(const Animal& other)
+AAnimal& AAnimal::operator=(const AAnimal& other)
 {
-	std::cout << "./Animal copy assign\n";
+	std::cout << "./AAnimal copy assign\n";
 	this->type = other.getType();
 	return (*this);
 }
 
-std::string Animal::getType() const
+std::string AAnimal::getType() const
 {
 	return (this->type);
 }
 
-void Animal::setType(std::string type)
+void AAnimal::setType(std::string type)
 {
 	this->type = type;
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongAnimal.cpp                                    :+:      :+:    :+:   */
+/*   WrongAAnimal.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,32 +15,32 @@
 
 WrongAnimal::WrongAnimal()
 {
-	std::cout << "./WrongAnimal default\n";
+	std::cout << "./WrongAAnimal default\n";
 	this->type = "";
 }
 
 WrongAnimal::~WrongAnimal()
 {
-	std::cout << "Takeback (WrongAnimal): KeyboardInterrupt\n";
+	std::cout << "Takeback (WrongAAnimal): KeyboardInterrupt\n";
 }
 
 WrongAnimal::WrongAnimal(std::string type)
 {
 
-	std::cout << "./WrongAnimal parametrised\n";
+	std::cout << "./WrongAAnimal parametrised\n";
 	this->type = type;
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal& other)
 {
 
-	std::cout << "./WrongAnimal copy\n";
+	std::cout << "./WrongAAnimal copy\n";
 	this->type = other.getType();
 }
 
 WrongAnimal& WrongAnimal::operator=(const WrongAnimal& other)
 {
-	std::cout << "./WrongAnimal copy assign\n";
+	std::cout << "./WrongAAnimal copy assign\n";
 	this->type = other.getType();
 	return (*this);
 }

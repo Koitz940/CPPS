@@ -13,7 +13,7 @@
 #include "Cat.hpp"
 #include <iostream>
 
-Cat::Cat(): Animal("Cat")
+Cat::Cat(): AAnimal("Cat")
 {
 	this->brain = new Brain();
 	std::cout << "./Cat default\n";
@@ -25,7 +25,7 @@ Cat::~Cat()
 	std::cout << "Takeback (Cat): KeyboardInterrupt\n";
 }
 
-Cat::Cat(const Cat& other): Animal("Cat")
+Cat::Cat(const Cat& other): AAnimal("Cat")
 {
 	*this = other;
 	this->brain = new Brain(*other.brain);
@@ -42,7 +42,7 @@ Brain* Cat::getBrain() const
 	return this->brain;
 }
 
-Animal& Cat::operator=(const Animal& other)
+AAnimal& Cat::operator=(const AAnimal& other)
 {
 	if (this == &other)
 		return *this;

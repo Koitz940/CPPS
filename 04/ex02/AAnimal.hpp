@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
+/*   AAnimal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/31 01:46:22 by gcassi-d          #+#    #+#             */
-/*   Updated: 2025/12/31 01:46:22 by gcassi-d         ###   ########.fr       */
+/*   Created: 2025/12/28 21:35:07 by gcassi-d          #+#    #+#             */
+/*   Updated: 2025/12/28 21:35:07 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "AForm.hpp"
+#pragma once
 
-class RobotomyRequestForm: public AForm
+#include <string>
+#include "Brain.hpp"
+
+class AAnimal
 {
-	const std::string target;
-	
-	RobotomyRequestForm();
-
+	protected:
+		std::string type;
 	public:
-		~RobotomyRequestForm();
-		RobotomyRequestForm(const std::string& target);
-		RobotomyRequestForm(const RobotomyRequestForm& other);
-		void execute(Bureaucrat const & executor) const;
+		AAnimal();
+		virtual ~AAnimal();
+		AAnimal(std::string type);
+		AAnimal(const AAnimal& other);
+		virtual AAnimal& operator=(const AAnimal& other);
+
+		std::string getType() const;
+		void setType(std::string type);
+		virtual void makeSound(void) const = 0;
+		virtual Brain* getBrain() const = 0;
 };

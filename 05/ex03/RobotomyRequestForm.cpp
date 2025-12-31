@@ -36,6 +36,7 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other): AFor
 void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 {
 	this->checkConditions(executor);
+	
 	std::cout << "* Unbearable drilling noises *\n";
 	if (rand() % 2)
 		std::cout << this->target << " has been successfully robotomized\n";

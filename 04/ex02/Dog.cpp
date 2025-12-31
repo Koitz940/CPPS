@@ -13,7 +13,7 @@
 #include "Dog.hpp"
 #include <iostream>
 
-Dog::Dog(): Animal("Dog")
+Dog::Dog(): AAnimal("Dog")
 {
 	this->brain = new Brain();
 	std::cout << "./Dog default\n";
@@ -25,7 +25,7 @@ Dog::~Dog()
 	std::cout << "Takeback (Dog): KeyboardInterrupt\n";
 }
 
-Dog::Dog(const Dog& other): Animal("Dog")
+Dog::Dog(const Dog& other): AAnimal("Dog")
 {
 	*this = other;
 	this->brain = new Brain(*other.brain);
@@ -42,7 +42,7 @@ Brain* Dog::getBrain() const
 	return this->brain;
 }
 
-Animal& Dog::operator=(const Animal& other)
+AAnimal& Dog::operator=(const AAnimal& other)
 {
 	if (this == &other)
 		return *this;

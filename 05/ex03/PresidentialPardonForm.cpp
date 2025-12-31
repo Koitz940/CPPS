@@ -35,5 +35,6 @@ PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& oth
 void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
 	this->checkConditions(executor);
+	
 	std::cout << this->target << " has been forgiven by Zaphod Beeblebrox\n";
 }

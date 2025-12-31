@@ -14,80 +14,58 @@
 #include "ShrubberyCreationForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "Intern.hpp"
 
 int main()
 {
-	ShrubberyCreationForm s("trees");
-	PresidentialPardonForm p("None");
-	RobotomyRequestForm r("some");
 	Bureaucrat bossman("bossman", 1);
-	Bureaucrat useless("useless", 150);
-	Bureaucrat average("average", 72);
+	Intern overworked = Intern();
 
 	try
 	{
-		bossman.executeForm(p);
+		AForm* f = overworked.makeForm("ShrubberyCreationForm", "tree");
+		f->beSigned(bossman);
+		bossman.executeForm(*f);
+		delete f;
 	}
-	catch (std::exception& e)
+	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << "\n";
+		std::cerr << e.what() << '\n';
 	}
-
+	
 	try
 	{
-		bossman.executeForm(s);
+		AForm* f = overworked.makeForm("PresidentialPardonForm", "tree");
+		f->beSigned(bossman);
+		bossman.executeForm(*f);
+		delete f;
 	}
-	catch (std::exception& e)
+	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << "\n";
-	}
-
-	try
-	{
-		bossman.executeForm(r);
-	}
-	catch (std::exception& e)
-	{
-		std::cerr << e.what() << "\n";
-	}
-
-	bossman.SignForm(p);
-	bossman.SignForm(s);
-	bossman.SignForm(r);
-
-	try
-	{
-		useless.executeForm(p);
-	}
-	catch (std::exception& e)
-	{
-		std::cerr << e.what() << "\n";
+		std::cerr << e.what() << '\n';
 	}
 
 	try
 	{
-		average.executeForm(s);
+		AForm* f = overworked.makeForm("RobotomyRequestForm", "tree");
+		f->beSigned(bossman);
+		bossman.executeForm(*f);
+		delete f;
 	}
-	catch (std::exception& e)
+	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << "\n";
-	}
-
-	try
-	{
-		bossman.executeForm(p);
-	}
-	catch (std::exception& e)
-	{
-		std::cerr << e.what() << "\n";
+		std::cerr << e.what() << '\n';
 	}
 
 	try
 	{
-		bossman.executeForm(r);
+		AForm* f = overworked.makeForm("Form", "tree");
+		f->beSigned(bossman);
+		bossman.executeForm(*f);
+		delete f;
 	}
-	catch (std::exception& e)
+	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << "\n";
+		std::cerr << e.what() << '\n';
 	}
 }
