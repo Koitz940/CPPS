@@ -19,6 +19,14 @@ class ScalarConverter
 	ScalarConverter(const ScalarConverter& other);
 	ScalarConverter& operator=(const ScalarConverter& rSym);
 	public:
-		static void converter(std::string &expression);
+		static void convert(const std::string &expression);
 		~ScalarConverter();
+
+	class Overflow: public std::exception
+	{
+		const char* msg;
+		public:
+			const char* what() const throw();
+			Overflow(const char* msg);
+	};
 };

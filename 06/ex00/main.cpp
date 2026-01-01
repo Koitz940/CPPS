@@ -13,12 +13,12 @@
 #include <iostream>
 #include "ScalarConverter.hpp"
 
-int main()
+int main(int ac, char **av)
 {
-	float x = 97.;
-
-	std::cout << "Char: "<< static_cast<char>(x) << "\n";
-	std::cout << "Int: "<< static_cast<int>(x) << "\n";
-	std::cout << "Float: "<< x << "f\n";
-	std::cout << "Double: "<< static_cast<double>(x) << "\n";
+	if (ac != 2)
+	{
+		std::cout << "Incorrect amount of numbers given\n";
+		return 0;
+	}
+	ScalarConverter::convert(av[1]);
 }
