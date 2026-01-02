@@ -12,6 +12,8 @@
 
 #pragma once
 #include <string>
+#define DINF ((double)1e308 + (double)1e308 + (double)1e308)
+#define FINF ((float)2e38 + (float)2e38 + (float)2e38)
 
 class ScalarConverter
 {

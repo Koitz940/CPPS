@@ -12,12 +12,11 @@
 
 #include <iostream>
 #include "ScalarConverter.hpp"
-#include <sstream>
 
 ScalarConverter::~ScalarConverter() {}
 ScalarConverter::ScalarConverter() {}
 ScalarConverter::ScalarConverter(const ScalarConverter& other) {(void)other;}
-ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other){
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
 	(void)other;
 	return *this;
 }
@@ -91,8 +90,6 @@ static int isANum(const std::string &str)
 
 	if (str[0] == '-' || str[0] == '+') {
 		start++;
-		if (str.length() == 1)
-			throw (ScalarConverter::Overflow("Expression is just a sign, there is no number"));
 	}
     for (size_t i = start; i < str.length(); i++) {
 		if (str[i] == '.')
@@ -105,6 +102,8 @@ static int isANum(const std::string &str)
 		else if (!isdigit(str[i]))
 			throw (ScalarConverter::Overflow("Incorrect character found, not a valid number"));
 	}
+	if (f == 1 && dots == 0)
+		throw (ScalarConverter::Overflow("Incorrect character found, not a valid number"));
 	if (dots == 0)
 		return 0;
 	if (dots > 1)
@@ -113,13 +112,145 @@ static int isANum(const std::string &str)
 		return 2;
 	if (str[str.length() - 1] != 'f')
 		throw (ScalarConverter::Overflow("Incorrect character found, not a valid number (f of float not at the end of the string)"));
+	std::cout << f << " " << dots << "\n";
 	return 1;
+}
+
+static int ft_atoi(const std::string expression) {
+	long long n = 0;
+	long long sign = 1;
+	size_t start = 0;
+
+	switch (expression[start]) {
+		case '+':
+			start++;
+			break;
+		case '-':
+			sign = -1;
+			start++;
+			break;
+		default:
+			break;
+	};
+
+	for (size_t i = start; i < expression.length(); i++) {
+		n = 10 * n + (expression[i] - '0');
+		switch (sign) {
+			case 1:
+				if (n > INT_MAX) {
+					throw(ScalarConverter::Overflow("Given int overflows int max"));
+				}
+				break;
+			case -1:
+				if (sign * n < INT_MIN) {
+					throw(ScalarConverter::Overflow("Given int underflows int min"));
+				}
+				break;
+		}
+	}
+	return (int)(sign * n);
+}
+
+static float ft_atof(const std::string expression) {
+	float x = 0.0;
+	float decimal = 0.0;
+	long sign = 1;
+	size_t start = 0;
+
+	switch (expression[start]) {
+		case '+':
+			start++;
+			break;
+		case '-':
+			sign = -1;
+			start++;
+			break;
+		default:
+			break;
+	};
+
+	for (size_t i = start; expression[i] != '.'; i++) {
+		x = 10.0 * x + expression[i] - '0';
+		if (x == FINF) {
+			switch (sign) {
+				case 1:
+					throw(ScalarConverter::Overflow("Given float overflows float max"));
+					break;
+				case 2:
+					throw(ScalarConverter::Overflow("Given float underflows float min"));
+					break;
+			}
+		}
+	}
+
+	for (size_t i = expression.length() - 2; expression[i] != '.'; i--) {
+		decimal = decimal / 10.0 + expression[i] - '0';
+		if (x + decimal / 10.0 == FINF) {
+			switch (sign) {
+				case 1:
+					throw(ScalarConverter::Overflow("Given float overflows float max"));
+					break;
+				case 2:
+					throw(ScalarConverter::Overflow("Given float underflows float min"));
+					break;
+			}
+		}
+	}
+	return (float)sign * (x + decimal / 10.0);
+}
+
+static double ft_atod(const std::string expression) {
+	double x = 0.0;
+	double decimal = 0.0;
+	long sign = 1;
+	size_t start = 0;
+
+	switch (expression[start]) {
+		case '+':
+			start++;
+			break;
+		case '-':
+			sign = -1;
+			start++;
+			break;
+		default:
+			break;
+	};
+
+	for (size_t i = start; expression[i] != '.'; i++) {
+		start = i;
+		x = 10.0 * x + expression[i] - '0';
+		if (x == DINF) {
+			switch (sign) {
+				case 1:
+					throw(ScalarConverter::Overflow("Given double overflows double max"));
+					break;
+				case 2:
+					throw(ScalarConverter::Overflow("Given double underflows double min"));
+					break;
+			}
+		}
+	}
+
+	for (size_t i = expression.length() - 1; expression[i] != '.'; i--) {
+		decimal = decimal / 10.0 + expression[i] - '0';
+		if (x + decimal / 10.0 == DINF) {
+			switch (sign) {
+				case 1:
+					throw(ScalarConverter::Overflow("Given double overflows double max"));
+					break;
+				case 2:
+					throw(ScalarConverter::Overflow("Given double underflows double min"));
+					break;
+			}
+		}
+	}
+	return (double)sign * (x + decimal / 10.0);
 }
 
 void ScalarConverter::convert(const std::string &expression)
 {
 	int floatFlag;
-	std::istringstream iss(expression);
 	int n = 0;
 	float x = 0.0;
 	double y = 0.0;
@@ -128,9 +259,10 @@ void ScalarConverter::convert(const std::string &expression)
 		std::cout << "Cannot transform an empty string\n";
 		return;
 	}
-	if (expression == "." || expression == "-.")
+	if (expression == "-." || expression == "-.f" || expression == ".f") {
 		std::cout << "Invalid float, either side must have a 0 at least\n";
 		return;
+	}
 	if (expression == "nanf" || expression == "+inff" || expression == "-inff"){
 		specialFloat(expression);
 		return;
@@ -152,15 +284,30 @@ void ScalarConverter::convert(const std::string &expression)
 	}
 	switch (floatFlag) {
 	case 0:
-		iss >> n;
+		try {
+			n = ft_atoi(expression);
+		} catch (std::exception &e) {
+			std::cout << e.what() << "\n";
+			return;
+		}
 		print(n);
 		break;
 	case 1:
-		iss >> x;
+		try {
+			x = ft_atof(expression);
+		} catch (std::exception &e) {
+			std::cout << e.what() << "\n";
+			return;
+		}
 		print(x);
 		break;
 	case 2:
-		iss >> y;
+		try {
+			y = ft_atod(expression);
+		} catch (std::exception &e) {
+			std::cout << e.what() << "\n";
+			return;
+		}
 		print(y);
 		break;
 	default:
