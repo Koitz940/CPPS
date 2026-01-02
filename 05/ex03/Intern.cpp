@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Intern.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 15:44:37 by gcassi-d          #+#    #+#             */
-/*   Updated: 2025/12/31 15:44:37 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/02 16:48:48 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ Intern& Intern::operator=(const Intern& other)
 AForm* Intern::makeForm(const std::string& name, const std::string& target)
 {
 	std::string options[3] = {"PresidentialPardonForm", "RobotomyRequestForm", "ShrubberyCreationForm"};
-	AForm *	(Intern::*funcs[3])(const std::string& target) const = {Intern::createPres, Intern::createRobot, Intern::createSrhub};
+	AForm* (Intern::*funcs[3])(const std::string& target) const = {&Intern::createPres, &Intern::createRobot, &Intern::createSrhub};
 
 	for (int i = 0; i < 3; i++)
 	{

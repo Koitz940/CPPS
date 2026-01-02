@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 01:56:10 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/02 01:56:10 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/02 17:39:47 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
 #include <algorithm>
+#include <iostream>
 
 Span::NoMoreSpace::NoMoreSpace(const char* msg): msg(msg) {}
 const char* Span::NoMoreSpace::what() const throw() {
@@ -23,6 +24,8 @@ Span::Span(): N(1), len(0) {
 }
 
 Span::Span(unsigned int n): N(n), len(0) {
+	if (n == 0)
+		throw(Span::NoMoreSpace("an empty array doesn't make sense"));
 	this->vec = new int[n];
 }
 
@@ -73,10 +76,14 @@ unsigned int Span::shortestSpan() const {
 	if (this->len < 2)
 		throw (Span::NoMoreSpace("No span of a list of len 0 or 1"));
 	int *copy = new int[this->len];
+	if (!copy) {
+		std::cout << "allocation failed\n";
+		return 0;
+	}
 	for (unsigned int i = 0; i < len; i++) {
 		copy[i] = this->vec[i];
 	}
-	std::sort(copy, copy + len);
+	std::sort(copy, copy + this->len);
 	unsigned int min = (unsigned int)abs(((long)copy[0] - (long)copy[1]));
 	unsigned int tmp;
 	for (unsigned int i = 1; i + 1 < this->len; i++) {
@@ -95,9 +102,9 @@ unsigned int Span::longestSpan() const {
 	int min = this->vec[0];
 	for (unsigned int i = 0; i < this->len; i++) {
 		if (this->vec[i] > max)
-			min = this->vec[i];
-		if (this->vec[i] < min)
 			max = this->vec[i];
+		if (this->vec[i] < min)
+			min = this->vec[i];
 	}
 	return (unsigned int)((long)max - (long)min);
 }

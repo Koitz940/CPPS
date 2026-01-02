@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 18:50:54 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/01 18:50:54 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/02 16:52:07 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int main()
 	uintptr_t n = Serializer::serialize(z);
 	Data* p = Serializer::deserialize(n);
 
+	std::cout << z << " " << p << "\n";
 	std::cout << "Im: " << p->im << ", Re: " << p->re << "\n";
 	std::cout << "Im: " << z->im << ", Re: " << z->re << "\n";
 	delete z;

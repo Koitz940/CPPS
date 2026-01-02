@@ -1,4 +1,4 @@
-NAME=AForm
+NAME=template
 SRCS=main.cpp
 OBJS=${SRCS:.cpp=.o}
 CC=c++

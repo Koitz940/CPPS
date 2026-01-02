@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 20:31:41 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/01 20:31:41 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/02 17:10:26 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int main()
 	std::cout << "initializing complex array values\n";
 	try {
 		for (size_t i = 0; i < nums.size(); i++) {
-			nums[i] = from( (double)(i * i + 2 * i + 1) - (double)(i * i) / 2.0, E * (double)i);
+			nums[i] = from( ((double)(i * i + 2 * i + 1) - (double)(i * i)) / 2.0, E * (double)i);
 		}
 	} catch (std::exception& e) {
 		std::cout << e.what() << "\n";
