@@ -112,7 +112,6 @@ static int isANum(const std::string &str)
 		return 2;
 	if (str[str.length() - 1] != 'f')
 		throw (ScalarConverter::Overflow("Incorrect character found, not a valid number (f of float not at the end of the string)"));
-	std::cout << f << " " << dots << "\n";
 	return 1;
 }
 
