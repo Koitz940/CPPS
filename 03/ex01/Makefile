@@ -1,5 +1,6 @@
-NAME=serializer
-SRCS=	Serializer.cpp \
+NAME=Scav
+SRCS=	ClapTrap.cpp \
+		ScavTrap.cpp \
 		main.cpp
 OBJS=${SRCS:.cpp=.o}
 CC=c++

@@ -1,5 +1,7 @@
-NAME=serializer
-SRCS=	Serializer.cpp \
+NAME=Frag
+SRCS=	ClapTrap.cpp \
+		ScavTrap.cpp \
+		FragTrap.cpp \
 		main.cpp
 OBJS=${SRCS:.cpp=.o}
 CC=c++

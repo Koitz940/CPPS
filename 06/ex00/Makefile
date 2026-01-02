@@ -1,5 +1,5 @@
-NAME=AForm
-SRCS=	ScalarConvertor.cpp \
+NAME=converter
+SRCS=	ScalarConverter.cpp \
 		main.cpp
 OBJS=${SRCS:.cpp=.o}
 CC=c++

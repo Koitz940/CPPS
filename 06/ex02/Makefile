@@ -1,4 +1,4 @@
-NAME=AForm
+NAME=base
 SRCS=	Base.cpp \
 		functions.cpp \
 		main.cpp

@@ -1,5 +1,5 @@
-NAME=serializer
-SRCS=	Serializer.cpp \
+NAME=Fixed
+SRCS=	Fixed.cpp \
 		main.cpp
 OBJS=${SRCS:.cpp=.o}
 CC=c++

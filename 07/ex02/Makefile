@@ -1,6 +1,5 @@
-NAME=serializer
-SRCS=	Serializer.cpp \
-		main.cpp
+NAME=array
+SRCS=main.cpp
 OBJS=${SRCS:.cpp=.o}
 CC=c++
 CFLAGS=-Wall -Wextra -Werror -std=c++98 

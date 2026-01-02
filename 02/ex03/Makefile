@@ -1,5 +1,6 @@
-NAME=serializer
-SRCS=	Serializer.cpp \
+NAME=Ilovetriangles
+SRCS=	Fixed.cpp \
+		Point.cpp \
 		main.cpp
 OBJS=${SRCS:.cpp=.o}
 CC=c++

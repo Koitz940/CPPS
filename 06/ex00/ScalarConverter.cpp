@@ -128,6 +128,9 @@ void ScalarConverter::convert(const std::string &expression)
 		std::cout << "Cannot transform an empty string\n";
 		return;
 	}
+	if (expression == "." || expression == "-.")
+		std::cout << "Invalid float, either side must have a 0 at least\n";
+		return;
 	if (expression == "nanf" || expression == "+inff" || expression == "-inff"){
 		specialFloat(expression);
 		return;
@@ -145,6 +148,7 @@ void ScalarConverter::convert(const std::string &expression)
 	}
 	catch (std::exception &e) {
 		std::cout << e.what() << "\n";
+		return;
 	}
 	switch (floatFlag) {
 	case 0:
