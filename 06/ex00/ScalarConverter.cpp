@@ -43,8 +43,11 @@ static void printInt(const int n)
 
 static void printFloat(const float x)
 {
-	std::cout << "Float: " << x;
-	if (x - static_cast<int>(x) == 0)
+	std::cout << "Float: ";
+	if (x == FINF)
+		std::cout << "+";
+	std::cout << x;
+	if (x - static_cast<int>(x) == 0 && x < 1000000.0)
 		std::cout << ".0";
 	std::cout << "f\n";
 }
@@ -52,7 +55,7 @@ static void printFloat(const float x)
 static void printDouble(const double x)
 {
 	std::cout << "Double: " << x;
-	if (x - static_cast<int>(x) == 0)
+	if (x - static_cast<int>(x) == 0 && x < 1000000.0)
 		std::cout << ".0";
 	std::cout << "\n";
 }
