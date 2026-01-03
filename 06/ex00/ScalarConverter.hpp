@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 18:31:05 by gcassi-d          #+#    #+#             */
-/*   Updated: 2025/12/31 18:31:05 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/03 15:55:57 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <string>
 #define DINF ((double)1e308 + (double)1e308 + (double)1e308)
 #define FINF ((float)2e38 + (float)2e38 + (float)2e38)
+#define INT_MAX 2147483647
+#define INT_MIN -2147483648
 
 class ScalarConverter
 {
