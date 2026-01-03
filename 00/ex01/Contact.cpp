@@ -1,17 +1,21 @@
 #include "Contact.hpp"
 
-Contact::Contact(std::string s, std::string fs, std::string ns)
+Contact::Contact(std::string s, std::string fs, std::string ns, std::string number, std::string secret)
 {
-	name = s;
-	last = fs;
-	nick = ns;
+	this->name = s;
+	this->last = fs;
+	this->nick = ns;
+	this->number = number;
+	this->secret = secret;
 }
 
 Contact::Contact()
 {
-	name = "";
-	last = "";
-	nick = "";
+	this->name = "";
+	this->last = "";
+	this->nick = "";
+	this->number = "";
+	this->secret = "";
 }
 
 Contact::~Contact() {}

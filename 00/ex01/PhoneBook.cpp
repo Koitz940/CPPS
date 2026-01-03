@@ -6,7 +6,7 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 20:41:44 by gcassi-d          #+#    #+#             */
-/*   Updated: 2025/12/22 15:27:26 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/03 18:14:19 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ PhoneBook::PhoneBook()
 
 PhoneBook::~PhoneBook() {}
 
-void PhoneBook::add(std::string s, std::string ls, std::string ns)
+void PhoneBook::add(std::string s, std::string ls, std::string ns, std::string number, std::string secret)
 {
-	contacts[i % 8] = Contact(s, ls, ns);
+	contacts[i % 8] = Contact(s, ls, ns, number, secret);
 	i++;
 }
 

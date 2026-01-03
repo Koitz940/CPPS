@@ -6,18 +6,41 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 20:51:33 by gcassi-d          #+#    #+#             */
-/*   Updated: 2025/12/22 15:20:22 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/03 18:20:56 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 #include <iostream>
 
-std::string ask(std::string message)
+std::string ask(const std::string& message)
 {
 	std::string answer = "";
 
 	while (answer.length() == 0)
+	{
+		std::cout << message;
+		getline(std::cin, answer);
+	}
+	return (answer);
+}
+
+bool isnumber(std::string& msg) {
+	if (msg.length() == 0)
+		return true;
+	for (size_t i = 0; i < msg.length(); i++) {
+		if (!isdigit(msg[i]))
+			return true;
+	}
+	return false;
+}
+
+
+std::string asknum(const std::string& message)
+{
+	std::string answer = "";
+
+	while (answer.length() != 9 || isnumber(answer))
 	{
 		std::cout << message;
 		getline(std::cin, answer);
@@ -30,11 +53,15 @@ void add(PhoneBook &phone)
 	std::string n;
 	std::string ln;
 	std::string nn;
+	std::string secret;
+	std::string number;
 
-	n = ask("What is the user's name? ");
-	ln = ask("What is the user's last name? ");
-	nn = ask("What is the user's nickname? ");
-	phone.add(n, ln, nn);
+	n = ask("What is the contact's name? ");
+	ln = ask("What is the contact's last name? ");
+	nn = ask("What is the contact's nickname? ");
+	number = asknum("What is the contact's number? ");
+	secret = ask("What is the contact's secret? ");
+	phone.add(n, ln, nn, number, secret);
 }
 
 int getind()
@@ -71,6 +98,8 @@ void search(PhoneBook &phone)
 	std::cout << "Name: " << contact.name << "\n";
 	std::cout << "Last name: " << contact.last << "\n";
 	std::cout << "Nickname: " << contact.nick << "\n";
+	std::cout << "Number: " << contact.number << "\n";
+	std::cout << "Darkest Secret: " << contact.secret << "\n";
 }
 
 int main()
