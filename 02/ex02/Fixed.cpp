@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 13:23:24 by gcassi-d          #+#    #+#             */
-/*   Updated: 2025/12/24 18:27:49 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/04 01:17:32 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ Fixed const& Fixed::max(Fixed const& input1, Fixed const& input2)
 	return input2;
 }
 
-Fixed Fixed::operator++()
+Fixed& Fixed::operator++()
 {
 	++(this->val);
 	return (*this);
@@ -166,7 +166,7 @@ Fixed Fixed::operator++(int)
 	++(*this);
 	return temp;
 }
-Fixed Fixed::operator--()
+Fixed& Fixed::operator--()
 {
 	--(this->val);
 	return (*this);

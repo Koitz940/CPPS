@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 13:20:54 by gcassi-d          #+#    #+#             */
-/*   Updated: 2025/12/24 18:35:40 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/04 01:17:23 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ class Fixed
 		Fixed operator-(const Fixed& other) const;
 		Fixed operator/(const Fixed& other) const;
 
-		Fixed operator++();
+		Fixed& operator++();
 		Fixed operator++(int);
-		Fixed operator--();
+		Fixed& operator--();
 		Fixed operator--(int);
 
 		static Fixed& min(Fixed& input1, Fixed& input2);

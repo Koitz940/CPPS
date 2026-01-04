@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Contact.cpp                                        :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/03 21:55:42 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/03 21:55:42 by gcassi-d         ###   ########.fr       */
+/*   Created: 2026/01/03 22:03:07 by gcassi-d          #+#    #+#             */
+/*   Updated: 2026/01/03 22:03:07 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Contact.hpp"
-
-Contact::Contact(std::string s, std::string fs, std::string ns, std::string number, std::string secret)
+#include "BitcoinExchange.hpp"
+int main(int ac, char** av)
 {
-	this->name = s;
-	this->last = fs;
-	this->nick = ns;
-	this->number = number;
-	this->secret = secret;
-}
+	try {
+		BitcoinExchange b = BitcoinExchange();
 
-Contact::Contact()
-{
-	this->name = "";
-	this->last = "";
-	this->nick = "";
-	this->number = "";
-	this->secret = "";
-}
+		if (ac != 2) {
+			std::cerr << "Incorrect amount of inputs";
+			return 1;
+		}
 
-Contact::~Contact() {}
+		b.run(av[1]);
+	} catch (std::exception& e) {
+		std::cerr << e.what() << "\n";
+		return 1;
+	}
+}
