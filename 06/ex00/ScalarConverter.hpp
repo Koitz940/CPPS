@@ -14,8 +14,8 @@
 #include <string>
 #define DINF ((double)1e308 + (double)1e308 + (double)1e308)
 #define FINF ((float)2e38 + (float)2e38 + (float)2e38)
-#define INT_MAX 2147483647
-#define INT_MIN -2147483648
+#define MAX 2147483647
+#define MIN (-2147483647 - 1)
 
 class ScalarConverter
 {

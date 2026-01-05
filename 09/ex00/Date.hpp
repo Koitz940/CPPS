@@ -14,6 +14,7 @@
 
 #include <exception>
 #include <ostream>
+#define MIN (-2147483647 - 1)
 
 class Date {
 	int MaxDay(int month, int year);

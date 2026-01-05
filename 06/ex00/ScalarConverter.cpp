@@ -139,12 +139,12 @@ static int ft_atoi(const std::string expression) {
 		n = 10 * n + (expression[i] - '0');
 		switch (sign) {
 			case 1:
-				if (n > INT_MAX) {
+				if (n > MAX) {
 					throw(ScalarConverter::Overflow("Given int overflows int max"));
 				}
 				break;
 			case -1:
-				if (sign * n < INT_MIN) {
+				if (sign * n < MIN) {
 					throw(ScalarConverter::Overflow("Given int underflows int min"));
 				}
 				break;

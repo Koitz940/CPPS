@@ -121,7 +121,7 @@ Date& Date::operator++() {
 		return (*this);
 	this->month = 1;
 	this->year++;
-	if (this->year == INT_MIN)
+	if (this->year == MIN)
 		throw (DateError("++ operator applied on INT_MAX/12/31, out of dates LOL"));
 	return (*this);
 }
