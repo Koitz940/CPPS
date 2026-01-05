@@ -248,7 +248,6 @@ void PmergeMe::run() {
 	end = clock();
 	//std::cout << "After: " << this->deq << "\n";
 	std::cout << "Time to process a range of " << this->vec.size() << " elements with std::deque : " << (exp * (double)(end - start)) / (double)CLOCKS_PER_SEC << unit << "\n";
-	std::cout << end - start;
 }
 
 std::ostream& operator<<(std::ostream& out, const std::vector<num>& vec) {
