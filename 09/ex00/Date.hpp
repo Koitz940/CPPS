@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Date.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 23:59:14 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/03 23:59:14 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/05 16:48:27 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <exception>
 #include <ostream>
 #define MIN (-2147483647 - 1)
+#define MAX 2147483647
 
 class Date {
 	int MaxDay(int month, int year);

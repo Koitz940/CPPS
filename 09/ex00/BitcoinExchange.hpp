@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 21:55:28 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/03 21:55:28 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/05 16:46:55 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 class BitcoinExchange {
 	std::map<Date, float> data;
+	Date min;
 
 	void MapInit();
 	void MapInit(const char* filename);

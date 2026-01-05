@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Date.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/04 00:00:15 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/04 00:00:15 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/05 16:19:24 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,6 @@ bool Date::operator>(const Date& other) const {
 }
 
 std::ostream& operator<<(std::ostream& out, const Date& date) {
-	out << date.year << "-";
 	if (date.year < 1000) {
 		out << "0";
 	}

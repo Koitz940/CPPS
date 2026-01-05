@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RPN2.cpp                                           :+:      :+:    :+:   */
+/*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:25:25 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/05 13:25:25 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/05 17:34:31 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,7 @@ void validate(const std::string& input) {
 				throw(RPNError("Error: Invalid Reversed Polish expression"));
 			return ;
 		}
-		if (*it != ' ')
-			throw(RPNError("Error: Invalid character"));
 		it++;
-		if (it == input.end())
-			throw(RPNError("Error: Stop on space"));
 	}
 }
 
@@ -103,4 +99,44 @@ int run(std::stack<int>& stuff) {
 		case 13: return first / second;
 	}
 	return 98324623;
+}
+
+static void remove_extra_spaces(std::string &str) {
+    std::string result;
+    bool space = false;
+
+    for (std::string::const_iterator it = str.begin(); it != str.end(); it++) {
+        if (std::isspace(*it)) {
+            if (!space) {
+                result += ' ';
+                space = true;
+            }
+        } else {
+            result += *it;
+            space = false;
+        }
+    }
+
+    str = result;
+}
+
+std::string correct(char* str) {
+	if (!*str)
+		throw(RPNError("Error: Empty argument"));
+
+	bool check = true;
+	for (int i = 0; str[i]; i++) {
+		if (!std::isspace(str[i])) {
+			check = false;
+			break;
+		}
+	}
+	if (check)
+		throw(RPNError("Error: Empty argument"));
+	std::string answer(str);
+
+	answer = answer.substr(answer.find_first_not_of(' '), answer.find_last_not_of(' ') - answer.find_first_not_of(' ') + 1);
+
+	remove_extra_spaces(answer);
+	return answer;
 }
