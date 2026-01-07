@@ -18,6 +18,9 @@ PmergeMe::Overflow::Overflow(const char* msg): msg(msg) {}
 PmergeMe::PmergeMe(): vec(1), deq(1) {
 	this->vec.push_back(1);
 	this->deq.push_back(1);
+	this->vecTime = 0;
+	this->deqTime = 0;
+	this->valTime = 0;
 }
 PmergeMe::~PmergeMe() {};
 
@@ -27,14 +30,23 @@ PmergeMe::PmergeMe(const PmergeMe& other) {
 PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 	this->vec = other.vec;
 	this->deq = other.deq;
+	this->vecTime = other.vecTime;
+	this->deqTime = other.deqTime;
+	this->valTime = other.valTime;
 
 	return *this;
 }
 
-PmergeMe::PmergeMe(std::string& str) {
+PmergeMe::PmergeMe(std::string& str, clock_t valTime) {
 	std::string::const_iterator it;
-	num cur = 0;
+	num cur;
+	std::clock_t start;
+	std::clock_t end;
+	double exp;
 
+	this->valTime = valTime;
+	start = clock();
+	cur = 0;
 	it = str.begin();
 	while (it != str.end()) {
 		while (it != str.end() && isdigit(*it)) {
@@ -43,12 +55,32 @@ PmergeMe::PmergeMe(std::string& str) {
 				throw Overflow("Number bigger than the maximum");
 			++it;
 		}
-		this->vec.push_back(cur);
-		this->deq.push_back(cur);
+		this->vec.push_back(cur);;
 		cur = 0;
 		if (it != str.end())
 			++it;
 	}
+	end = clock();
+	exp = this->vec.size() < 1000? US: MS;
+	this->vecTime = exp * ((double)(end - start)) / CLOCKS_PER_SEC;
+
+	start = clock();
+	cur = 0;
+	it = str.begin();
+	while (it != str.end()) {
+		while (it != str.end() && isdigit(*it)) {
+			cur = cur * 10 + (*it - '0');
+			if (cur < 0)
+				throw Overflow("Number bigger than the maximum");
+			++it;
+		}
+		this->deq.push_back(cur);;
+		cur = 0;
+		if (it != str.end())
+			++it;
+	}
+	end = clock();
+	this->deqTime = exp * ((double)(end - start)) / CLOCKS_PER_SEC;
 }
 
 void PmergeMe::validate(const std::string& input) {
@@ -233,21 +265,33 @@ int locateDeq(std::deque<T>& deq, T n) {
 void PmergeMe::run() {
 	std::clock_t start;
 	std::clock_t end;
-	float exp = this->vec.size() < 100 ? NS: US;
-	std::string unit = this->vec.size() < 100 ? " ns": " us";
+	float exp = this->vec.size() < 1000? US: MS;
+	std::string unit = this->vec.size() < 1000? " us": " ms";
+	double sortTime;
+	double valT = (MS * (double)this->valTime) / CLOCKS_PER_SEC;
 
+	std::cout << "Time to validate the data: " << valT << " ms" <<"\n\n";
+	std::cout << "Using std::vector\n";
 	std::cout << "Before: " << this->vec << "\n";
 	start = clock();
 	sortVec(this->vec);
 	end = clock();
 	std::cout << "After: " << this->vec << "\n";
-	std::cout << "Time to process a range of " << this->vec.size() << " elements with std::vec : " << (exp * (double)(end - start)) / (double)CLOCKS_PER_SEC << unit <<"\n";
+	sortTime = (exp * (double)(end - start)) / (double)CLOCKS_PER_SEC;
+	std::cout << "Time to sort a range of " << this->vec.size() << " elements with std::vector : " << sortTime << unit <<"\n";
+	std::cout << "Time to create container + sort a range of " << this->vec.size() << " elements with std::vector : " << sortTime + this->vecTime << unit <<"\n";
+	std::cout << "Total time with std::vector : " << (sortTime) * (MS/exp) + this->vecTime * (MS/exp) + valT << " ms" << "\n\n";
 
+	std::cout << "Using std::deque\n";
+	std::cout << "Before: " << this->deq << "\n";
 	start = clock();
 	sortDeq(this->deq);
 	end = clock();
-	//std::cout << "After: " << this->deq << "\n";
-	std::cout << "Time to process a range of " << this->vec.size() << " elements with std::deque : " << (exp * (double)(end - start)) / (double)CLOCKS_PER_SEC << unit << "\n";
+	std::cout << "After: " << this->deq << "\n";
+	sortTime = (exp * (double)(end - start)) / (double)CLOCKS_PER_SEC;
+	std::cout << "Time to sort a range of " << this->deq.size() << " elements with std::deque : " << sortTime << unit <<"\n";
+	std::cout << "Time to create container + sort a range of " << this->vec.size() << " elements with std::deque : " << sortTime + this->deqTime << unit <<"\n";
+	std::cout << "Total time with std::deque : " << (sortTime) * (MS/exp) + this->deqTime * (MS/exp) + valT << " ms" << "\n";
 }
 
 std::ostream& operator<<(std::ostream& out, const std::vector<num>& vec) {

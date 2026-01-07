@@ -20,19 +20,22 @@
 #include <sstream>
 #include <cstddef>
 
-#define NS (1000000000.0)
 #define US (1000000.0)
+#define MS (1000.0)
 
 typedef long long num;
 
 class PmergeMe {
 	std::vector<num> vec;
 	std::deque<num> deq;
+	double vecTime;
+	double deqTime;
+	clock_t valTime;
 
 	public:
 		PmergeMe();
 		~PmergeMe();
-		PmergeMe(std::string& str);
+		PmergeMe(std::string& str, clock_t valTime);
 		PmergeMe(const PmergeMe& other);
 		PmergeMe& operator=(const PmergeMe& other);
 		static void validate(const std::string& input);
@@ -51,7 +54,7 @@ template <typename T>
 void sortVec(std::vector<T>& vec);
 
 template <typename T>
-void sortDeq(std::deque<T>& vec);
+void sortDeq(std::deque<T>& deq);
 
 template <typename T>
 int locateVec(std::vector<T>& vec, T n);
