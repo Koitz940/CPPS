@@ -6,7 +6,7 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 21:45:42 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/07 17:01:35 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/07 17:32:42 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	main(int ac, char **av) {
 	std::string expr = join(av + 1);
 
 	try {
-		PmergeMe::validate(expr);
 		PmergeMe::correct(expr);
+		PmergeMe::validate(expr);
 		PmergeMe instance(expr, clock() - start);
 		instance.run();
 	} catch (std::exception& e) {

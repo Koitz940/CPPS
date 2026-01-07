@@ -119,7 +119,7 @@ static void removeExtraSpaces(std::string &str) {
 
 void PmergeMe::correct(std::string& str) {
 	if (str.size() == 0)
-		throw(Overflow("Error: Empty argument"));
+		throw(Overflow("Empty argument"));
 
 	bool check = true;
 	for (std::string::const_iterator it = str.begin(); it != str.end(); it++) {
@@ -129,7 +129,7 @@ void PmergeMe::correct(std::string& str) {
 		}
 	}
 	if (check)
-		throw(Overflow("Error: Empty argument"));
+		throw(Overflow("Empty argument"));
 	std::string answer(str);
 
 	answer = answer.substr(answer.find_first_not_of(' '), answer.find_last_not_of(' ') - answer.find_first_not_of(' ') + 1);
