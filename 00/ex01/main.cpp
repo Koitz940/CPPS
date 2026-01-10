@@ -17,10 +17,11 @@ std::string ask(const std::string& message)
 {
 	std::string answer = "";
 
-	while (answer.length() == 0)
+	while (answer.empty())
 	{
 		std::cout << message;
-		getline(std::cin, answer);
+		if (!getline(std::cin, answer))
+			exit(0);
 	}
 	return (answer);
 }
@@ -43,7 +44,8 @@ std::string asknum(const std::string& message)
 	while (answer.length() != 9 || isnumber(answer))
 	{
 		std::cout << message;
-		getline(std::cin, answer);
+		if (!getline(std::cin, answer))
+			exit(0);
 	}
 	return (answer);
 }
@@ -70,7 +72,8 @@ int getind()
 
     while (true)
     {
-        std::getline(std::cin, input);
+        if (!getline(std::cin, input))
+			exit(0);
 		if (input.length() != 1)
 			return -1;
 		return input[0] - '0';
@@ -85,6 +88,12 @@ void search(PhoneBook &phone)
 	Contact contact;
 
 	am = phone.contact_amount();
+	if (am == 0)
+	{
+		std::cout << "\n" << "There are no contacts to search for\n";
+		return;
+	}
+	
 	phone.search();
 	
 	std::cout << "\n" << "Enter index of desired user: ";
