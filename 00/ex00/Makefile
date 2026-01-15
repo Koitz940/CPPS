@@ -1,5 +1,5 @@
 NAME=megaphone
-SRCS=megaphone.cpp;
+SRCS=megaphone.cpp
 OBJS=${SRCS:.cpp=.o}
 CC=c++
 CFLAGS=-Wall -Wextra -Werror -std=c++98
