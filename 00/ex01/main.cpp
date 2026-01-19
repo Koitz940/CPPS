@@ -6,7 +6,7 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 20:51:33 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/19 19:36:53 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/19 19:42:54 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ std::string ask(const std::string& message)
 {
 	std::string answer = "";
 
-	while (answer.length() == 0)
+	while (answer.empty())
 	{
 		std::cout << message;
 		getline(std::cin, answer);
@@ -49,7 +49,8 @@ std::string asknum(const std::string& message)
 	while (answer.length() != 9 || isnumber(answer))
 	{
 		std::cout << message;
-		getline(std::cin, answer);
+		if (!getline(std::cin, answer))
+			exit(0);
 	}
 	return (answer);
 }
@@ -76,7 +77,8 @@ int getind()
 
     while (true)
     {
-        std::getline(std::cin, input);
+        if (!getline(std::cin, input))
+			exit(0);
 		if (input.length() != 1)
 			return -1;
 		return input[0] - '0';
@@ -91,6 +93,12 @@ void search(PhoneBook &phone)
 	Contact contact;
 
 	am = phone.contact_amount();
+	if (am == 0)
+	{
+		std::cout << "\n" << "There are no contacts to search for\n";
+		return;
+	}
+	
 	phone.search();
 	
 	std::cout << "\n" << "Enter index of desired user: ";
