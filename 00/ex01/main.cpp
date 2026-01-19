@@ -6,7 +6,7 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 20:51:33 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/03 18:20:56 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/01/19 19:36:53 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ std::string ask(const std::string& message)
 	{
 		std::cout << message;
 		getline(std::cin, answer);
+		for (size_t i = 0; i < answer.size(); i++) {
+			if (!isalnum(answer[i])) {
+				answer = "";
+				break ;
+			}
+		}
 	}
 	return (answer);
 }
