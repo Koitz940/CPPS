@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/31 18:37:01 by gcassi-d          #+#    #+#             */
-/*   Updated: 2025/12/31 18:37:01 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/02/14 17:51:14 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,20 @@ const char* ScalarConverter::Overflow::what() const throw()
 	return (this->msg);
 }
 
-static void printChar(const char c)
+static void printChar(const long c)
 {
-	if (c == 127 || c < 32)
+	if (c >= 127 || c < 32)
 		std::cout << "Char: Non displayable\n";
 	else
-		std::cout << "Char: '"<< c << "'\n";
+		std::cout << "Char: '"<< (char)c << "'\n";
 }
 
-static void printInt(const int n)
+static void printInt(const long n)
 {
-	std::cout << "Int: "<< n << "\n";
+	if (n > __INT_MAX__ || n < -(__INT_MAX__) - 1)
+		std::cout << "Int: surpasses limits, impossible\n";
+	else
+		std::cout << "Int: "<< n << "\n";
 }
 
 static void printFloat(const float x)
@@ -46,7 +49,7 @@ static void printFloat(const float x)
 	std::cout << "Float: ";
 	if (x == FINF)
 		std::cout << "+";
-	std::cout << x;
+	std::cout << std::fixed << x;
 	if (x - static_cast<int>(x) == 0 && x < 1000000.0)
 		std::cout << ".0";
 	std::cout << "f\n";
@@ -54,7 +57,7 @@ static void printFloat(const float x)
 
 static void printDouble(const double x)
 {
-	std::cout << "Double: " << x;
+	std::cout << "Double: " << std::fixed << x;
 	if (x - static_cast<int>(x) == 0 && x < 1000000.0)
 		std::cout << ".0";
 	std::cout << "\n";
@@ -64,7 +67,7 @@ template <typename T>
 static void print(const T x)
 {
 	printChar(static_cast<char>(x));
-	printInt(static_cast<int>(x));
+	printInt(static_cast<long>(x));
 	printFloat(static_cast<float>(x));
 	printDouble(static_cast<double>(x));
 }
