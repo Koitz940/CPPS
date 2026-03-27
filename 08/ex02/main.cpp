@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcassi-d <gcassi-d@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 22:25:22 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/02 22:25:22 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/03/27 19:26:32 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int main() {
 		++it;
 	}
 	std::stack<int> s(mstack);
+	std::cout << s.size() << " " << mstack.size() << "\n";
 
 	std::cout << "List:" << std::endl;
 	std::list<int> lis;

@@ -6,7 +6,7 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/02 01:56:10 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/02 17:39:47 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/03/27 19:16:06 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ Span::Span(const Span& other): N(other.capacity()), len(other.len) {
 }
 
 Span& Span::operator=(const Span& other) {
+	if (this == &other)
+		return (*this);
+		
 	if (this->vec)
 		delete[] this->vec;
 	
