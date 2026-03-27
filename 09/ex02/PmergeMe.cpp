@@ -60,6 +60,7 @@ PmergeMe::PmergeMe(std::string& str, clock_t valTime) {
 		if (it != str.end())
 			++it;
 	}
+
 	end = clock();
 	exp = this->vec.size() < 1000? US: MS;
 	this->vecTime = exp * ((double)(end - start)) / CLOCKS_PER_SEC;
@@ -79,6 +80,7 @@ PmergeMe::PmergeMe(std::string& str, clock_t valTime) {
 		if (it != str.end())
 			++it;
 	}
+
 	end = clock();
 	this->deqTime = exp * ((double)(end - start)) / CLOCKS_PER_SEC;
 }
@@ -140,42 +142,60 @@ void PmergeMe::correct(std::string& str) {
 
 template <typename T>
 void sortVec(std::vector<T>& vec) {
-	switch (vec.size()) {
-		case 0: return;
-		case 1: return;
-		case 2:
-			if (vec[0] > vec[1])
-				swap(vec[0], vec[1]);
-			return;
-	}
-	
-	std::vector<T> vec1 = std::vector<T>();
-	std::vector<T> vec2 = std::vector<T>();
-	typename std::vector<T>::const_iterator it = vec.begin();
-	T first;
-	T second;
+    if (vec.size() <= 1)
+        return;
+    if (vec.size() == 2) {
+        if (vec[1] < vec[0])
+            std::swap(vec[0], vec[1]);
+        return;
+    }
 
-	while (it != vec.end()) {
-		first = *it;
-		it++;
-		if (it == vec.end()) {
-			vec1.push_back(first);
-			break;
+    bool isOdd = vec.size() % 2;
+    T odd;
+    if (isOdd) {
+        odd = vec.back();
+    }
+
+    std::vector<T> mainChain;
+	std::vector<T> pend;
+
+	mainChain.reserve(vec.size() / 2);
+	pend.reserve(vec.size() / 2);
+
+    for (size_t i = 0; i + 1 < vec.size(); i += 2) {
+        if (vec[i] < vec[i + 1]) {
+			mainChain.push_back(vec[i + 1]);
+			pend.push_back(vec[i]);
 		}
-		second = *it;
-		it++;
-		if (first > second) {
-			vec1.push_back(first);
-			vec2.push_back(second);
-			continue;
+        else {
+			mainChain.push_back(vec[i]);
+			pend.push_back(vec[i + 1]);
 		}
-		vec1.push_back(second);
-		vec2.push_back(first);
+    }
+    sortVec(mainChain);
+
+	if (isOdd)
+        mainChain.insert(mainChain.begin() + locateVec(mainChain, odd), odd);
+
+	if (vec.size() > 0) {
+		mainChain.insert(mainChain.begin() + locateVec(mainChain, pend[0]), pend[0]);
 	}
-	sortVec(vec1);
-	for (typename std::vector<T>::const_iterator ite = vec2.begin(); ite != vec2.end(); ite++)
-		vec1.insert(vec1.begin() + locateVec(vec1, *ite), *ite);
-	vec = vec1;
+	num cur = 1;
+	num prev = 1;
+	num temp;
+	while (cur < (num)pend.size()) {
+		for (num j = cur - 1; j > prev - 1; j--) {
+			mainChain.insert(mainChain.begin() + locateVec(mainChain, pend[j]), pend[j]);
+		}
+		temp = cur;
+		cur = cur + 2 * prev;
+		prev = temp;
+	}
+	for (num j = pend.size() - 1; j > prev - 1; j--) {
+		mainChain.insert(mainChain.begin() + locateVec(mainChain, pend[j]), pend[j]);
+	}
+
+    vec = mainChain;
 }
 
 template<typename T>
@@ -187,10 +207,10 @@ void swap(T& a, T& b)
 }
 
 template <typename T>
-int locateVec(std::vector<T>& vec, T n) {
-	int i = 0;
-	int j = vec.size();
-	int middle;
+size_t locateVec(std::vector<T>& vec, T n) {
+	size_t i = 0;
+	size_t j = vec.size();
+	size_t middle;
 
 	while (i < j) {
 		middle = (i + j) / 2;
@@ -206,49 +226,64 @@ int locateVec(std::vector<T>& vec, T n) {
 
 template <typename T>
 void sortDeq(std::deque<T>& deq) {
-	switch (deq.size()) {
-		case 0: return;
-		case 1: return;
-		case 2:
-			if (deq[0] > deq[1])
-				swap(deq[0], deq[1]);
-			return;
-	}
-	
-	std::deque<T> deq1 = std::deque<T>();
-	std::deque<T> deq2 = std::deque<T>();
-	typename std::deque<T>::const_iterator it = deq.begin();
-	T first;
-	T second;
+    if (deq.size() <= 1)
+        return;
+    if (deq.size() == 2) {
+        if (deq[1] < deq[0])
+            std::swap(deq[0], deq[1]);
+        return;
+    }
 
-	while (it != deq.end()) {
-		first = *it;
-		it++;
-		if (it == deq.end()) {
-			deq1.push_back(first);
-			break;
+    bool isOdd = deq.size() % 2;
+    T odd;
+    if (isOdd) {
+        odd = deq.back();
+    }
+
+    std::deque<T> mainChain;
+	std::deque<T> pend;
+
+    for (size_t i = 0; i + 1 < deq.size(); i += 2) {
+        if (deq[i] < deq[i + 1]) {
+			mainChain.push_back(deq[i + 1]);
+			pend.push_back(deq[i]);
 		}
-		second = *it;
-		it++;
-		if (first > second) {
-			deq1.push_back(first);
-			deq2.push_back(second);
-			continue;
+        else {
+			mainChain.push_back(deq[i]);
+			pend.push_back(deq[i + 1]);
 		}
-		deq1.push_back(second);
-		deq2.push_back(first);
+    }
+
+    sortDeq(mainChain);
+
+	if (isOdd)
+        mainChain.insert(mainChain.begin() + locateDeq(mainChain, odd), odd);
+
+	if (deq.size() > 0)
+        mainChain.insert(mainChain.begin() + locateDeq(mainChain, pend[0]), pend[0]);
+
+	num cur = 1;
+	num prev = 1;
+	num temp;
+	while (cur < (num)pend.size()) {
+		for (num j = cur - 1; j > prev - 1; j--) {
+			mainChain.insert(mainChain.begin() + locateDeq(mainChain, pend[j]), pend[j]);
+		}
+		temp = cur;
+		cur = cur + 2 * prev;
+		prev = temp;
 	}
-	sortDeq(deq1);
-	for (typename std::deque<T>::const_iterator ite = deq2.begin(); ite != deq2.end(); ite++)
-		deq1.insert(deq1.begin() + locateDeq(deq1, *ite), *ite);
-	deq = deq1;
+	for (num j = pend.size() - 1; j > prev - 1; j--) {
+		mainChain.insert(mainChain.begin() + locateDeq(mainChain, pend[j]), pend[j]);
+	}
+    deq = mainChain;
 }
 
 template <typename T>
-int locateDeq(std::deque<T>& deq, T n) {
-	int i = 0;
-	int j = deq.size();
-	int middle;
+size_t locateDeq(std::deque<T>& deq, T n) {
+	size_t i = 0;
+	size_t j = deq.size();
+	size_t middle;
 
 	while (i < j) {
 		middle = (i + j) / 2;
@@ -260,6 +295,24 @@ int locateDeq(std::deque<T>& deq, T n) {
 			j = middle;
 	}
 	return i;
+}
+
+template <typename T>
+static bool vecsorted(std::vector<T>& vec) {
+	for (size_t i = 0; i + 1 < vec.size(); i++) {
+		if (vec[i] > vec[i+1])
+			return (false);
+	}
+	return (true);
+}
+
+template <typename T>
+static bool deqsorted(std::deque<T>& vec) {
+	for (size_t i = 0; i + 1 < vec.size(); i++) {
+		if (vec[i] > vec[i+1])
+			return (false);
+	}
+	return (true);
 }
 
 void PmergeMe::run() {
@@ -276,18 +329,24 @@ void PmergeMe::run() {
 	start = clock();
 	sortVec(this->vec);
 	end = clock();
+	if (!vecsorted(this->vec)) {
+		std::cout << "sorting failed!\n";
+		return ;
+	}
 	std::cout << "After: " << this->vec << "\n";
 	sortTime = (exp * (double)(end - start)) / (double)CLOCKS_PER_SEC;
 	std::cout << "Time to sort a range of " << this->vec.size() << " elements with std::vector : " << sortTime << unit <<"\n";
 	std::cout << "Time to create container + sort a range of " << this->vec.size() << " elements with std::vector : " << sortTime + this->vecTime << unit <<"\n";
 	std::cout << "Total time with std::vector : " << (sortTime) * (MS/exp) + this->vecTime * (MS/exp) + valT << " ms" << "\n\n";
 
-	std::cout << "Using std::deque\n";
-	std::cout << "Before: " << this->deq << "\n";
 	start = clock();
 	sortDeq(this->deq);
 	end = clock();
-	std::cout << "After: " << this->deq << "\n";
+
+	if (!deqsorted(this->deq)) {
+		std::cout << "sorting failed!\n";
+		return ;
+	}
 	sortTime = (exp * (double)(end - start)) / (double)CLOCKS_PER_SEC;
 	std::cout << "Time to sort a range of " << this->deq.size() << " elements with std::deque : " << sortTime << unit <<"\n";
 	std::cout << "Time to create container + sort a range of " << this->vec.size() << " elements with std::deque : " << sortTime + this->deqTime << unit <<"\n";
@@ -298,7 +357,7 @@ std::ostream& operator<<(std::ostream& out, const std::vector<num>& vec) {
 	for (std::vector<num>::const_iterator it = vec.begin(); it != vec.end(); it++) {
 		std::cout << *it;
 		if ((it + 1) != vec.end())
-		std::cout << " ";
+			std::cout << " ";
 	}
 	return out;
 }
@@ -307,7 +366,7 @@ std::ostream& operator<<(std::ostream& out, const std::deque<num>& deq) {
 	for (std::deque<num>::const_iterator it = deq.begin(); it != deq.end(); it++) {
 		std::cout << *it;
 		if ((it + 1) != deq.end())
-		std::cout << " ";
+			std::cout << " ";
 	}
 	return out;
 }

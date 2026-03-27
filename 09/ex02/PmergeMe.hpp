@@ -57,10 +57,10 @@ template <typename T>
 void sortDeq(std::deque<T>& deq);
 
 template <typename T>
-int locateVec(std::vector<T>& vec, T n);
+size_t locateVec(std::vector<T>& vec, T n);
 
 template <typename T>
-int locateDeq(std::deque<T>& deq, T n);
+size_t locateDeq(std::deque<T>& vec, T n);
 
 template<typename T>
 void swap(T& a, T& b);

@@ -6,7 +6,7 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 20:51:33 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/19 19:42:54 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/02/14 17:58:32 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ std::string ask(const std::string& message)
 		std::cout << message;
 		getline(std::cin, answer);
 		for (size_t i = 0; i < answer.size(); i++) {
-			if (!isalnum(answer[i])) {
+			if (!(isalnum(answer[i]) || answer[i] == 32 || (answer[i] >= 9 && answer[i] <= 13))) {
 				answer = "";
 				break ;
 			}

@@ -6,7 +6,7 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:14:41 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/02 16:54:47 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/03/23 20:43:34 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,31 @@ int main()
 	else
 		delete b;
 
-	Base* c = generate();
-	identify(c);
-	Base& ref1 = *c;
+	b = generate();
+	identify(b);
+	Base& ref1 = *b;
 	identify(ref1);
-	if (!c)
+	if (!b)
 		std::cout << "new failed...\n";
 	else
-		delete c;
+		delete b;
 
 
-	Base* a = generate();
-	identify(a);
-	Base& ref2 = *a;
+	b = generate();
+	identify(b);
+	Base& ref2 = *b;
 	identify(ref2);
-	if (!a)
+	if (!b)
 		std::cout << "new failed...\n";
 	else
-		delete a;
+		delete b;
 	
-	Base* d = generate();
-	identify(d);
-	Base& ref3 = *d;
+	b = generate();
+	identify(b);
+	Base& ref3 = *b;
 	identify(ref3);
-	if (!d)
+	if (!b)
 		std::cout << "new failed...\n";
 	else
-		delete d;
+		delete b;
 }

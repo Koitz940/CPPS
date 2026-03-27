@@ -6,7 +6,7 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 20:31:41 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/02 17:10:26 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/03/23 20:59:50 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,12 @@ const char* Array<T>::IndexOutOfBounds::what() const throw() {
 
 template <typename T>
 Array<T>::Array() {
-	this->vec = new T[1];
-	this->capacity = 1;
+	this->vec = new T[0];
+	this->capacity = 0;
 }
 
 template <typename T>
 Array<T>::Array(unsigned int n) {
-	if (!n)
-		throw (Array<T>::IndexOutOfBounds("Cannot have an empty array"));
 	this->capacity = n;
 	this->vec = new T[n];
 	for (size_t i = 0; i < this->capacity; ++i) {
@@ -54,12 +52,13 @@ Array<T>::~Array() {
 
 template <typename T>
 Array<T>& Array<T>::operator=(const Array<T>& other) {
-	if (this->vec)
+	if (this != &other)
+	{
 		delete[] this->vec;
-	this->vec = new T[other.size()];
-	this->capacity = other.size();
-	for (size_t i = 0; i < this->capacity; ++i) {
-		this->vec[i] = other.vec[i];
+		this->vec = new T[other.capacity];
+		this->capacity = other.capacity;
+		for (size_t i = 0; i < this->capacity; i++)
+			this->vec[i] = other.vec[i];
 	}
 	return *this;
 }
@@ -134,6 +133,11 @@ int main()
 	std::cout << "checking out of range of the int array\n";
 	try {
 		ints[234] = 3141592;
+	} catch (std::exception& e) {
+		std::cout << e.what() << "\n";
+	}
+	try {
+		ints[-1] = 3141592;
 	} catch (std::exception& e) {
 		std::cout << e.what() << "\n";
 	}

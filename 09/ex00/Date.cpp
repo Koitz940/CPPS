@@ -6,7 +6,7 @@
 /*   By: gcassi-d <gcassi-d@42urduliz.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/04 00:00:15 by gcassi-d          #+#    #+#             */
-/*   Updated: 2026/01/05 16:19:24 by gcassi-d         ###   ########.fr       */
+/*   Updated: 2026/03/03 19:10:13 by gcassi-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ bool Date::operator<(const Date& other) {
 		return false;
 	else if (this->year < other.year)
 		return true;
-	if (this->month > other.month)
+	else if (this->month > other.month)
 		return false;
 	else if (this->month < other.month)
 		return true;
-	if (this->day > other.day)
+	else if (this->day > other.day)
 		return false;
 	else if (this->day < other.day)
 		return true;
@@ -100,11 +100,11 @@ bool Date::operator>(const Date& other) {
 		return false;
 	else if (this->year > other.year)
 		return true;
-	if (this->month < other.month)
+	else if (this->month < other.month)
 		return false;
 	else if (this->month > other.month)
 		return true;
-	if (this->day < other.day)
+	else if (this->day < other.day)
 		return false;
 	else if (this->day > other.day)
 		return true;
@@ -117,7 +117,7 @@ Date& Date::operator++() {
 		return (*this);
 	this->day = 1;
 	this->month++;
-	if (!(this->day > 12))
+	if (!(this->month > 12))
 		return (*this);
 	this->month = 1;
 	this->year++;
